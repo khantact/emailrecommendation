@@ -6,9 +6,5 @@
     margin: 0;
     padding: 0;
 }
-@layer components{
-    .navitem{
-        @apply p-3 text-black block transition ease-in hover:bg-violet-600 
-    }
-}
+
 

@@ -9,7 +9,7 @@ const Navbar = () => {
     return(
         <div>
             <nav>
-                <ul className="flex justify-start mt-0 p-0 drop-shadow-lg bg-violet-950">
+                <ul className="flex justify-start mt-0 p-0 bg-indigo-900 drop-shadow-lg">
                     <li><a href="/" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">Home</a></li>
                     <li className=""><a href="/about" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">About</a></li>
                     <li className=""><a href="/papers" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">Papers</a></li>

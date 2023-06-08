@@ -17,6 +17,10 @@ module.exports = {
         50: '50ms',
         100: '100ms',
       },
+      colors: {
+        'pearl': '#b1aebb',
+        'peach': '#fefdfd',
+      },
     },
   },
   plugins: [],
