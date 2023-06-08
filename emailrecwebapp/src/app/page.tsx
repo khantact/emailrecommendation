@@ -4,7 +4,7 @@ const Main = () => {
   return (
     <div className="grid justify-center place-items-center bg-indigo-950 h-screen">
       <div className='max-w-md'>
-        <div className='grid place-items-center block font-bold text-8xl subpixel-antialiased text-[#fefdfd]'>
+        <div className='transition ease-in delay-50 grid place-items-center block font-bold text-8xl subpixel-antialiased text-[#fefdfd]'>
           Lorem
         </div>
         <div className='grid place-items-center block text-center mt-4 text-lg text-[#b1aebb]'>

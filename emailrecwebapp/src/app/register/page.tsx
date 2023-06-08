@@ -6,7 +6,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
   };
