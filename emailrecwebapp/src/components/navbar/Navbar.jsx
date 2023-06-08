@@ -9,12 +9,12 @@ const Navbar = () => {
     return(
         <div>
             <nav>
-                <ul className="navBar drop-shadow-md bg-violet-800">
-                    <li><a href="/" className="transition ease-in delay-50 hover:bg-violet-600">Home</a></li>
-                    <li><a href="/about" className="transition ease-in delay-50 hover:bg-violet-600">About</a></li>
-                    <li><a href="/Papers" className="transition ease-in delay-50 hover:bg-violet-600">Papers</a></li>
-                    <li><a href="/Register" className="transition ease-in delay-50 hover:bg-violet-600">Register</a></li>
-                    <li><a href="/Log In" className="transition ease-in delay-50 hover:bg-violet-600">Log In</a></li>
+                <ul className="flex justify-start mt-0 p-0 drop-shadow-lg bg-violet-950">
+                    <li><a href="/" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">Home</a></li>
+                    <li className=""><a href="/about" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">About</a></li>
+                    <li className=""><a href="/papers" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">Papers</a></li>
+                    <li className="ml-auto"><a href="/register" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">Register</a></li>
+                    <li><a href="/login" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">Log In</a></li>
                 </ul>
             </nav>
         </div>

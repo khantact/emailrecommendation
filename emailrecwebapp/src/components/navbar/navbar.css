@@ -6,28 +6,9 @@
     margin: 0;
     padding: 0;
 }
-
-.navBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style-type: none;
-    margin-top: 0;
-    padding: 0;
-    overflow: hidden;
+@layer components{
+    .navitem{
+        @apply p-3 text-black block transition ease-in hover:bg-violet-600 
+    }
 }
 
-li{
-    float: left;
-}
-li a{
-    display: block;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    padding: 14px 16px;
-}
-
-.active{
-    background-color: gray;
-}
