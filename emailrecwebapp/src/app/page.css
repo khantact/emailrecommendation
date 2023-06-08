@@ -1,0 +1,15 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.title {
+  animation: fadeIn 0.5s ease-in;
+}
+.desc {
+    animation: fadeIn 2.5s ease-in;
+}

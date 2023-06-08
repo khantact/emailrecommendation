@@ -21,6 +21,7 @@ module.exports = {
         'pearl': '#b1aebb',
         'peach': '#fefdfd',
       },
+      
     },
   },
   plugins: [],
