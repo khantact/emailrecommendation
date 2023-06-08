@@ -8,7 +8,6 @@ const RegisterPage = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Perform registration logic here
 
   };
 

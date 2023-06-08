@@ -7,8 +7,8 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Perform login logic here
-  };
+
+};
 
   return (
     <div className="flex justify-center items-center h-screen">
