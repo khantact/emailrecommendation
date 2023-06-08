@@ -12,7 +12,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen bg-gradient-to-b from-indigo-950 to-indigo-900">
       <div className="w-full max-w-md">
         <h2 className="text-2xl text-center font-bold mb-4">Register</h2>
         <form onSubmit={handleRegister}>
