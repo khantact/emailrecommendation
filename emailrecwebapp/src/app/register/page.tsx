@@ -1,14 +1,25 @@
 "use client"
 import React, { useState } from 'react';
+import { app } from '../../../_app';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegisterPage = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  app;
   const handleRegister = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user;
+        alert("User created successfully");
+    }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage)
+    })
+    
   };
 
   return (
