@@ -10,8 +10,8 @@ const Navbar = () => {
     const { currentUser, logOut } = useAuth();
 
     return(
-        <div>
-            <nav>
+        <div className="">
+            <nav >
                 <ul className="flex justify-start mt-0 p-0 bg-indigo-900 drop-shadow-lg">
                     <li><Link href="/" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">Home</Link></li>
                     <li className=""><Link href="/about" className="p-3 text-violet-50 block transition ease-in delay-50 hover:bg-violet-600">About</Link></li>
