@@ -1,18 +1,20 @@
 "use client"
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from '../../../_app';
+import '../../utils/firebase';
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  app;
+  const router = useRouter();
   const handleLogin = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const auth = getAuth();
+    
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
-        alert("User logged in successfully");
+        router.push('/profile');
     }).catch((error) => {
         const errorMessage = error.message;
         alert(errorMessage)
