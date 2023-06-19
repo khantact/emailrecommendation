@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en" className="text-peach font-serif bg-indigo-950">
       <body>
       <AuthProvider>
-        <div className="fixed top-0 left-0 right-0 z-50">
+        <div className=" top-0 left-0 right-0 z-50">
           <Navbar/>
         </div>
         <div className="">
