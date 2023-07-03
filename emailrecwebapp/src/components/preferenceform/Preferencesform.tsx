@@ -1,11 +1,26 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client"
-import React, { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { auth, db } from '../../utils/firebase.js';
+import { setDoc, doc } from "firebase/firestore";
 const Preferencesform = () => {
   const [preferences, setPreferences] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [errormessage, setErrormessage] = useState('');
+  const userId = auth.currentUser?.uid;
+
+  useEffect(() => {
+    if (userId) {
+      // const unsubscribe = db.collection('users').doc(userId).onSnapshot((snapshot) => {
+      //     if (snapshot.exists) {
+      //       const userData = snapshot.data();
+      //       setPreferences(userData.preferences || []);
+      //     }
+      //   });
+
+      // return () => unsubscribe();
+    }
+  }, [userId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
