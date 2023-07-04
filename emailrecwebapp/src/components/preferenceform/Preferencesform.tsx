@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-"use client"
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../../utils/firebase.js';
 import { setDoc, doc, collection, updateDoc } from "firebase/firestore";
@@ -7,8 +5,20 @@ const Preferencesform = () => {
   const [preferences, setPreferences] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [errormessage, setErrormessage] = useState('');
-  const userId = auth.currentUser?.uid as string;
-  const preferencesRef = doc(db, 'users', userId);
+  const [preferencesRef , setPreferencesRef] = useState<any>(null);
+  // const user = auth.currentUser;
+  // const userId = user?.uid as string;
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userId = user.uid as string;
+        setPreferencesRef(doc(db, 'users', userId));
+      } else {
+        // No user is signed in.
+      }
+    });
+    return unsubscribe;
+  } , []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -34,11 +44,11 @@ const Preferencesform = () => {
     setErrormessage('');
   };
 
-  const handleDeletePreference = (index: number) => {
+  const handleDeletePreference = async (index: number) => {
     setPreferences((prevPreferences) =>
       prevPreferences.filter((_, i) => i !== index)
     );
-    updateDoc(preferencesRef, {
+    await updateDoc(preferencesRef, {
       preferences: preferences.filter((_, i) => i !== index),
     }).then(() => {
       console.log("Document successfully updated!");

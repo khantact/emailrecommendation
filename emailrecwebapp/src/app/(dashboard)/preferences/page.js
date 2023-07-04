@@ -2,7 +2,6 @@
 import React from 'react'
 import Dashboard from '@/components/dashboard/Dashboard'
 import Preferencesform from '@/components/preferenceform/Preferencesform'
-import Navbar from '@/components/navbar/Navbar'
 const Preferences = () => {
   return(
     <div className='flex'>
