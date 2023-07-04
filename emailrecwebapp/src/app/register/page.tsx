@@ -1,19 +1,34 @@
 "use client"
 import React, { useState } from 'react';
 import '../../utils/firebase';
+import { db } from '../../utils/firebase';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { useRouter } from 'next/navigation';
 
 const RegisterPage = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
   const handleRegister = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const auth = getAuth();
     
     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        const user = userCredential.user;
-        alert("User created successfully");
+      const userId = userCredential.user.uid as string;
+      try {
+        setDoc(doc(db, 'users', userId),{
+          fullName: fullName,
+          email: email,
+          preferences: [],
+        }, {merge: true})
+      } catch (e) {
+        console.log("There has been an error in creating document");
+        console.error(e);
+      }
+      alert("User created successfully");
+      router.push('/preferences');
     }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;

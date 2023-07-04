@@ -14,7 +14,7 @@ const LoginPage = () => {
     
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
-        router.push('/profile');
+        router.push('/preferences');
     }).catch((error) => {
         const errorMessage = error.message;
         alert(errorMessage)

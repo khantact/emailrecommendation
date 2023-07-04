@@ -1,2 +1,1 @@
-Add loading to register screen
-Add loading to login screen
+Make preferences load from database instead of local storage

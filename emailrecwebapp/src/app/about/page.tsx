@@ -2,7 +2,7 @@ import React from 'react'
 
 const about = () => {
   return (
-    <div className="grid justify-center bg-gradient-to-r from-indigo-950 to-indigo-700 h-screen overflow-y-hidden">
+    <div className="grid justify-center bg-gradient-to-t from-indigo-950 to-indigo-700 h-screen overflow-y-hidden">
       <div className='max-w-md mt-14'>
         <div className='title grid justify-center block font-bold text-8xl subpixel-antialiased text-peach'>
           About

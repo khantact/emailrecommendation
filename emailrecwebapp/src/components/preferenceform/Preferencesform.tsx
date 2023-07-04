@@ -2,31 +2,19 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../../utils/firebase.js';
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, collection, updateDoc } from "firebase/firestore";
 const Preferencesform = () => {
   const [preferences, setPreferences] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [errormessage, setErrormessage] = useState('');
-  const userId = auth.currentUser?.uid;
-
-  useEffect(() => {
-    if (userId) {
-      // const unsubscribe = db.collection('users').doc(userId).onSnapshot((snapshot) => {
-      //     if (snapshot.exists) {
-      //       const userData = snapshot.data();
-      //       setPreferences(userData.preferences || []);
-      //     }
-      //   });
-
-      // return () => unsubscribe();
-    }
-  }, [userId]);
+  const userId = auth.currentUser?.uid as string;
+  const preferencesRef = doc(db, 'users', userId);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleAddPreference = () => {
+  const handleAddPreference = async () => {
     if (inputValue.trim() === '') {
       return;
     }
@@ -37,6 +25,11 @@ const Preferencesform = () => {
     }
 
     setPreferences((prevPreferences) => [...prevPreferences, inputValue]);
+    await updateDoc(preferencesRef, {
+      preferences: [...preferences, inputValue],
+    }).then(() => { 
+      console.log("Document successfully updated!");
+    })
     setInputValue('');
     setErrormessage('');
   };
@@ -45,11 +38,16 @@ const Preferencesform = () => {
     setPreferences((prevPreferences) =>
       prevPreferences.filter((_, i) => i !== index)
     );
+    updateDoc(preferencesRef, {
+      preferences: preferences.filter((_, i) => i !== index),
+    }).then(() => {
+      console.log("Document successfully updated!");
+    })
   };
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex mt-12">
         <input
           type="text"
           placeholder="Enter preference"
