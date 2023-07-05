@@ -1,1 +1,6 @@
+TODO:
+    Finish account screen on dashboard
+    incorporate screen when user attempts to access site when not authenticated
+    incorporate email verification and password reset
+Done:
 Make preferences load from database instead of local storage
