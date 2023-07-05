@@ -3,7 +3,7 @@ import './page.css'
 
 const Main = () => {
   return (
-    <div className="grid justify-center place-items-center bg-gradient-to-r from-indigo-950 to-indigo-700 min-h-screen">
+    <div className="grid justify-center place-items-center bg-gradient-to-r from-indigo-950 to-indigo-700 min-h-screen gradientAnimation">
       <div className='max-w-md'>
         <div className='title grid place-items-center block font-bold text-8xl subpixel-antialiased text-peach'>
           Lorem

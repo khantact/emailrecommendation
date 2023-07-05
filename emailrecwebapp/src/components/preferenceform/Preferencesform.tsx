@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../../utils/firebase.js';
-import { setDoc, doc, collection, updateDoc } from "firebase/firestore";
+import { getDoc, doc, updateDoc, onSnapshot, DocumentSnapshot } from "firebase/firestore";
+import { useRouter } from 'next/navigation';
 const Preferencesform = () => {
   const [preferences, setPreferences] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [errormessage, setErrormessage] = useState('');
   const [preferencesRef , setPreferencesRef] = useState<any>(null);
-  // const user = auth.currentUser;
-  // const userId = user?.uid as string;
+  const router = useRouter();
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        const userId = user.uid as string;
-        setPreferencesRef(doc(db, 'users', userId));
+        setPreferencesRef(doc(db, "users", user.uid));
       } else {
-        // No user is signed in.
+        router.push('/login');
       }
     });
     return unsubscribe;
-  } , []);
-
+  } , [router]);
+  
+  useEffect(() => {
+    if (!preferencesRef) {
+      return;
+    }
+    const unsub = onSnapshot((preferencesRef), (doc : DocumentSnapshot<any>) => {
+      if (doc.exists()) {
+        const temp = (doc.data()?.preferences);
+        if (temp) {
+          setPreferences(temp);
+        }
+      } else {
+        console.log("No such document!");
+      }
+    })
+      return unsub;
+  }), [preferencesRef]
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
@@ -34,7 +49,7 @@ const Preferencesform = () => {
       return;
     }
 
-    setPreferences((prevPreferences) => [...prevPreferences, inputValue]);
+    // setPreferences((prevPreferences) => [...prevPreferences, inputValue]);
     await updateDoc(preferencesRef, {
       preferences: [...preferences, inputValue],
     }).then(() => { 
@@ -45,9 +60,9 @@ const Preferencesform = () => {
   };
 
   const handleDeletePreference = async (index: number) => {
-    setPreferences((prevPreferences) =>
-      prevPreferences.filter((_, i) => i !== index)
-    );
+    // setPreferences((prevPreferences) =>
+    //   prevPreferences.filter((_, i) => i !== index)
+    // );
     await updateDoc(preferencesRef, {
       preferences: preferences.filter((_, i) => i !== index),
     }).then(() => {
