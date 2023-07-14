@@ -22,6 +22,9 @@ const RegisterPage = () => {
           fullName: fullName,
           email: email,
           preferences: [],
+          recommendationsEnabled: true,
+          papersSent: 0,
+          papersReceived: [],
         }, {merge: true})
       } catch (e) {
         console.log("There has been an error in creating document");

@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="text-peach font-serif bg-indigo-950">
-      <body>
+      <body suppressHydrationWarning={true}>
       <AuthProvider>
         <div className=" top-0 left-0 right-0 z-50 fixed">
           <Navbar/>
