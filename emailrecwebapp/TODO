@@ -1,9 +1,9 @@
 TODO:
-    Implement account Settings
     incorporate screen when user attempts to access site when not authenticated
     incorporate email verification and password reset
     Need a list of papers (doi link?) that a user has seen already and display that on papers section
 WIP:
-    Finish account screen on dashboard
+    Beautify account screen on dashboard
 Done:
+    Implement account Settings
     Make preferences load from database instead of local storage
