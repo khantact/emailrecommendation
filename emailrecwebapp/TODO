@@ -1,9 +1,12 @@
 TODO:
     incorporate screen when user attempts to access site when not authenticated
     incorporate email verification and password reset
-    Need a list of papers (doi link?) that a user has seen already and display that on papers section
+    send emails to users using mailgun
+    format said emails to look nice
 WIP:
+    display seen papers on paper section
     Beautify account screen on dashboard
 Done:
+    Need a list of papers (doi link?) that a user has seen already 
     Implement account Settings
     Make preferences load from database instead of local storage
