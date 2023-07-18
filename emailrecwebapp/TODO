@@ -3,6 +3,7 @@ TODO:
     incorporate email verification and password reset
     send emails to users using mailgun
     format said emails to look nice
+    Vercel Cron scheduling
 WIP:
     display seen papers on paper section
     Beautify account screen on dashboard
