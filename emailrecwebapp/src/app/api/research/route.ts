@@ -1,5 +1,6 @@
 import { doc, getDocs, collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "@/utils/firebase";
+import nodemailer from 'nodemailer';
 const API_KEY = process.env.SPRINGER_API_KEY;
 
 export async function GET(request: Request) {
@@ -26,7 +27,7 @@ export async function GET(request: Request) {
                 /*
                 * This block of code ensures the user does not get recommended a paper that they have been sent before
                 */
-               preferences.forEach(async (preference : string) => {
+                preferences.forEach(async (preference : string) => {
                     var papersSent = document.data().papersSent;
                     preference = preference.replaceAll(" ", "+");
                     // From database
@@ -51,10 +52,32 @@ export async function GET(request: Request) {
                 /*
                 * This block of code should handle the styling of the email and sending of email
                 */
+                const config = {
+                    service : 'gmail',
+                    auth : {
+                        user : process.env.EMAIL,
+                        pass: process.env.PASSWORD
+                    }
+                }
+                const transporter = nodemailer.createTransport(config);
+                const message = {
+                    from: process.env.EMAIL,
+                    to : 'kevinhan0@gmail.com',
+                    subject: 'Lorem - Research Recommendations',
+                    html: `<h1>Test</h1>`,
+                    text: 'Test'
+                }
+                transporter.sendMail(message, (err, info) => {
+                     if (err) {
+                          console.log(err);
+                     } else {
+                        //   console.log(info);
+                     }
+                })
             }
     });
    } catch (err) {
-    console.log("error" + err);
+    console.log(err);
    }
     return new Response("Hello world", { status: 200 });
 }
