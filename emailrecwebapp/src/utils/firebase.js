@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, browserLocalPersistence, setPersistence } from 'firebase/auth';
+import { getAuth, browserLocalPersistence, setPersistence, sendPasswordResetEmail} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -20,7 +20,18 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+const sendPasswordReset = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset link sent!");
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export { sendPasswordReset };
 
 setPersistence(auth, browserLocalPersistence)
