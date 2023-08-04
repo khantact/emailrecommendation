@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import '../../utils/firebase';
 import { useRouter } from 'next/navigation';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -19,6 +20,7 @@ const LoginPage = () => {
         const errorMessage = error.message;
         alert(errorMessage)
     });
+    
 };
 
   return (
@@ -49,7 +51,17 @@ const LoginPage = () => {
             />
           </div>
           <button type="submit" className="w-full py-2 bg-indigo-900 text-white rounded hover:bg-indigo-800">Log In</button>
+          <div className="flex justify-center items-center mt-4">
+            <button
+              type="button"
+              className="text-white hover:text-white"
+              onClick={() =>window.location.replace("/reset")}
+            >
+              Forgot Password?
+            </button>
+          </div>
         </form>
+  
       </div>
     </div>
   );
