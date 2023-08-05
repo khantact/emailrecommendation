@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import '../../utils/firebase';
 import { useRouter } from 'next/navigation';
-import { Link } from 'react-router-dom';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -55,7 +55,7 @@ const LoginPage = () => {
             <button
               type="button"
               className="text-white hover:text-white"
-              onClick={() =>window.location.replace("/reset")}
+              onClick={() =>router.push("/reset")}
             >
               Forgot Password?
             </button>
