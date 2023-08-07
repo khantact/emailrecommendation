@@ -1,6 +1,4 @@
 TODO:
-    reset password logic left
-    updating the reset password
     format said emails to look nice
     fix papers not being added to firebase when refreshing past 2x
     check email validity on reset page, as well as display an error message based on firebase err
@@ -9,9 +7,11 @@ WIP:
     display seen papers on paper section
     Beautify account screen on dashboard
 Done:
+    reset password logic left
+    updating the reset password
     incorporate email verification 
     forgot password button created 
-    redirected to reset password pagere
+    redirected to reset password page
     redirect to log in screen when user attempts to access site when not authenticated EXCEPT PROFILE
     send emails to users using mailgun
     Need a list of papers (doi link?) that a user has seen already 
