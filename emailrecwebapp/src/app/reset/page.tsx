@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { useRouter } from 'next/navigation';
-// import './page.css';
 
 const ResetPage = () => {
   const [userEmail, setUserEmail] = useState('');
