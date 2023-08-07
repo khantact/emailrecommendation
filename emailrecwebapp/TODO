@@ -1,5 +1,6 @@
 TODO:
     reset password logic left
+    updating the reset password
     format said emails to look nice
     fix papers not being added to firebase when refreshing past 2x
     check email validity on reset page, as well as display an error message based on firebase err

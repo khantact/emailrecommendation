@@ -1,20 +1,52 @@
+
 "use client"
-import { sendPasswordReset } from "../../utils/firebase";
-import React, { useEffect, useState } from "react";
+import React from 'react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link';
+import { sendPasswordResetEmail } from "firebase/auth";
 import { getAuth } from "firebase/auth";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useRouter } from 'next/navigation';
+// import './page.css';
 
 const ResetPage = () => {
-  const [email, setEmail] = useState("");
+  const [userEmail, setUserEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [notification, setNotification] = useState('');
+  const [notificationError, setNotificationError] = useState(false);
   const auth = getAuth();
-  const [user, setUser] = useState(auth.currentUser);
+  const user = auth.currentUser;
   const router = useRouter();
 
-  useEffect(() => {
-    if (!user) return;
-    if (user) router.push("/dashboard");
-  }, [router, user]);
+  const handlePasswordReset = async (e: { preventDefault: () => void }) => {
+    console.log('Password reset')
+    e.preventDefault();
+    if (!userEmail) {
+      router.push('/login');
+      return;
+    }
+    if (newPassword !== confirmNewPassword) {
+      setNotification('Passwords do not match');
+      setNotificationError(true);
+      return;
+    } 
+    if (newPassword.length < 6) {
+      setNotification('Password must be at least 6 characters');
+      setNotificationError(true);
+      return;
+    }
+    try {
+      console.log('Send password reset email to USER')
+      await sendPasswordResetEmail(auth, userEmail);
+      setNotification('Password reset email sent!');
+      setNotificationError(false);
+    } catch (error) {
+      setNotification('Error sending password reset email');
+      setNotificationError(true);
+    }
+    setNewPassword('');
+    setConfirmNewPassword('');
+  };
 
   return (
     <div className="h-screen w-screen flex items-center justify-center">
@@ -22,11 +54,25 @@ const ResetPage = () => {
         <input
           type="text"
           className="text-lg mb-4 rounded-md bg-peach text-black w-full px-4 py-2 rounded border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
           placeholder="E-mail Address"
         />
-        <button className="p-3 text-lg mb-4 border-none bg-white text-peach bg-indigo-700 rounded-md hover:bg-indigo-800 transition ease-in " onClick={() => sendPasswordReset(email)}>
+        <input
+          type="password"
+          className="text-lg mb-4 rounded-md bg-peach text-black w-full px-4 py-2 rounded border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          placeholder="New Password"
+        />
+        <input
+          type="password"
+          className="text-lg mb-4 rounded-md bg-peach text-black w-full px-4 py-2 rounded border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+          value={confirmNewPassword}
+          onChange={(e) => setConfirmNewPassword(e.target.value)}
+          placeholder="Confirm New Password"
+        />
+        <button className="p-3 text-lg mb-4 border-none bg-white text-peach bg-indigo-700 rounded-md hover:bg-indigo-800 transition ease-in " onClick={handlePasswordReset}>
           Send password reset email
         </button>
         <div className="mt-4 text-peach">
