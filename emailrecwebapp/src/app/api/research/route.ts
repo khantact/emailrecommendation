@@ -1,3 +1,4 @@
+"use client"
 import { doc, getDocs, collection, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import nodemailer from 'nodemailer';
