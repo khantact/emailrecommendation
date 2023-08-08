@@ -1,7 +1,3 @@
-// Import the functions you need from the SDKs you need
-"use client"
-import React, { useState } from 'react';
-
 import { initializeApp } from "firebase/app";
 import { getAuth, browserLocalPersistence, setPersistence, sendPasswordResetEmail} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
