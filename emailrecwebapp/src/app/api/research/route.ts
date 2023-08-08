@@ -13,7 +13,7 @@ export async function GET(request: Request) {
             const preferences = document.data().preferences;
             const email = document.data().email;
             const name = document.data().fullName;
-            var papersRecieved = document.data().papersRecieved;
+            var papersReceived = document.data().papersReceived;
             var excludeDOI = "";
             const recomendationsEnabled = document.data().recommendationsEnabled;
             switch (preferences.length) {
@@ -28,11 +28,12 @@ export async function GET(request: Request) {
                 * This block of code ensures the user does not get recommended a paper that they have been sent before
                 */
                 preferences.forEach(async (preference : string) => {
-                    var papersSent = document.data().papersSent;
+                    // console.log(papersRecieved); TODO FIX
+                    var papersSent = papersReceived.length;
                     preference = preference.replaceAll(" ", "+");
                     // From database
-                    if (papersRecieved) {
-                        papersRecieved.forEach((doi:string) => {
+                    if (papersReceived) {
+                        papersReceived.forEach((doi:string) => {
                             doi = doi.substring(doi.indexOf(">")+1);
                             excludeDOI += " AND -(doi:"+doi+")";
                         })
@@ -40,12 +41,12 @@ export async function GET(request: Request) {
                     const apiUrl = `https://api.springernature.com/meta/v2/json?api_key=${API_KEY}&q=keyword:${preference}${excludeDOI}&p=${1}`;
                     const response = await fetch(apiUrl);
                     const data = await response.json();
-                    const seenDOIs = data.records.map((record : any) => record.doi);                
+                    const seenDOIs = data.records.map((record : any) => record.doi); 
                     const userRef = doc(db, 'users', id);
                     seenDOIs.forEach((doi : string) => {
                         updateDoc(userRef, {
                             papersReceived: arrayUnion(preference + ">" + doi),
-                            papersSent: papersSent + 1,
+                            papersSent: papersSent+1,
                         })
                     })
                 })
@@ -62,18 +63,19 @@ export async function GET(request: Request) {
                 const transporter = nodemailer.createTransport(config);
                 const message = {
                     from: process.env.EMAIL,
-                    to : 'kevinhan0@gmail.com',
+                    to : '', // add an email
                     subject: 'Lorem - Research Recommendations',
                     html: `<h1>Test</h1>`,
                     text: 'Test'
                 }
-                transporter.sendMail(message, (err, info) => {
-                     if (err) {
-                          console.log(err);
-                     } else {
-                        //   console.log(info);
-                     }
-                })
+                // Turn this off during testing unless you (atm my email) want to be spammed with emails
+                // transporter.sendMail(message, (err, info) => {
+                //      if (err) {
+                //           console.log(err);
+                //      } else {
+                //         //   console.log(info);
+                //      }
+                // })
             }
     });
    } catch (err) {
