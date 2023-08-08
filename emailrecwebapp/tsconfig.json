@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/context/authContext.js", "src/app/register/page.tsx", "src/app/(dashboard)/preferences/page.js", "src/components/preferenceform/Preferencesform.tsx", "src/app/api/research/route.ts", "src/utils/authUtils.js", "src/app/reset/Reset.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/context/authContext.js", "src/app/register/page.tsx", "src/app/(dashboard)/preferences/page.js", "src/components/preferenceform/Preferencesform.tsx", "src/api/research/route.ts", "src/utils/authUtils.js", "src/app/reset/Reset.jsx"],
   "exclude": ["node_modules"]
 }
