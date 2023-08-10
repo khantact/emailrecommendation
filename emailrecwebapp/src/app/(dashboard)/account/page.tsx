@@ -2,10 +2,15 @@
 import React from 'react'
 import Dashboard from '@/components/dashboard/Dashboard'
 import { useState, useEffect } from 'react'
-import { EmailAuthProvider, deleteUser, getAuth, onAuthStateChanged, reauthenticateWithCredential, signOut, updatePassword } from "firebase/auth";
+import { EmailAuthProvider, deleteUser, onAuthStateChanged, reauthenticateWithCredential, signOut, updatePassword } from "firebase/auth";
 import { useRouter } from 'next/navigation';
 import { db } from '@/utils/firebase';
+import { getAuth } from 'firebase/auth'
 import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import './page.css'
 import ConfirmationDialog from "@/components/confirmationdialog/ConfirmationDialog";
 const AccountSection = () => {
@@ -73,12 +78,13 @@ const AccountSection = () => {
     const credential = EmailAuthProvider.credential(userEmail, currentPassword);
     await reauthenticateWithCredential(user, credential).then(() => {
       updatePassword(user, newPassword).then(() => {
-        console.log('Password reset successfully!')
+        toast.success('Password reset successfully!')
         setNotification('Password reset successfully!');
         setNotificationError(false);
       })
       //TODO: send email to user
     }).catch((error) => {
+      error.message = 'Password reset failed';
       setNotification(error.message);
       setNotificationError(true);
     })
@@ -212,6 +218,7 @@ const AccountSection = () => {
         />
       )}
   </div>
+  <ToastContainer />
 </div>
 
   )
