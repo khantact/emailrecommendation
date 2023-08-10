@@ -1,12 +1,13 @@
 TODO:
     format said emails to look nice
-    fix papers not being added to firebase when refreshing past 2x
     check email validity on reset page, as well as display an error message based on firebase err
     Vercel Cron scheduling (this should be last)
 WIP:
+    Use regex to make user use a stronger password (need to make it look better)
     display seen papers on paper section
     Beautify account screen on dashboard
 Done:
+    fix papers not being added to firebase when refreshing past 2x
     reset password logic left
     updating the reset password
     incorporate email verification 
