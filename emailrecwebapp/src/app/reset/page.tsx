@@ -6,9 +6,6 @@ import Link from 'next/link';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { getAuth } from "firebase/auth";
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 
 const ResetPage = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -28,22 +25,22 @@ const ResetPage = () => {
       return;
     }
     if (newPassword !== confirmNewPassword) {
-      toast.error('Passwords do not match');
+      setNotification('Passwords do not match');
       setNotificationError(true);
       return;
     } 
     if (newPassword.length < 6) {
-      toast.error('Password must be at least 6 characters');
+      setNotification('Password must be at least 6 characters');
       setNotificationError(true);
       return;
     }
     try {
       console.log('Send password reset email to USER')
       await sendPasswordResetEmail(auth, userEmail);
-      toast.success('Password reset email sent!');
+      setNotification('Password reset email sent!');
       setNotificationError(false);
     } catch (error) {
-      toast.error('Error sending password reset email');
+      setNotification('Error sending password reset email');
       setNotificationError(true);
     }
     setNewPassword('');
@@ -74,7 +71,7 @@ const ResetPage = () => {
           onChange={(e) => setConfirmNewPassword(e.target.value)}
           placeholder="Confirm New Password"
         />
-        <button className="p-3 text-lg mb-4 border-none bg-indigo-675 text-peach bg-indigo-700 rounded-md hover:bg-indigo-800 transition ease-in " onClick={handlePasswordReset}>
+        <button className="p-3 text-lg mb-4 border-none bg-white text-peach bg-indigo-700 rounded-md hover:bg-indigo-800 transition ease-in " onClick={handlePasswordReset}>
           Send password reset email
         </button>
         <div className="mt-4 text-peach">
@@ -82,7 +79,6 @@ const ResetPage = () => {
           Don't have an account? <Link href="/register" className="hover:text-indigo-500 transition ease-in underline">Register</Link> now.
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

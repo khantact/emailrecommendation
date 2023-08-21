@@ -5,8 +5,6 @@ import { db } from '../../utils/firebase';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterPage = () => {
   const [fullName, setFullName] = useState('');
@@ -69,15 +67,15 @@ const RegisterPage = () => {
           papersReceived: [],
         }, {merge: true})
       } catch (e) {
-        //console.log("There has been an error in creating document");
-        toast.error("There has been an error in creating document");
+        console.log("There has been an error in creating document");
+        console.error(e);
       }
+      alert("User created successfully");
       router.push('/preferences');
-      toast.success("User created successfully");
     }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        toast.error(errorMessage);
+        alert(errorMessage)
     })
     
   };
@@ -161,7 +159,6 @@ const RegisterPage = () => {
           <button type="submit" className="w-full py-2 bg-indigo-900 text-white rounded hover:bg-indigo-800">Register</button>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };

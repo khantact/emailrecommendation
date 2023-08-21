@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import '../../utils/firebase';
 import { useRouter } from 'next/navigation';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -13,20 +12,16 @@ const LoginPage = () => {
   const handleLogin = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const auth = getAuth();
-
     
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user;
         router.push('/preferences');
-        toast.success("Logged in successfully");
     }).catch((error) => {
-        const errorMessage = "Invalid email/password";
-        toast.error(errorMessage);
+        const errorMessage = error.message;
+        alert(errorMessage)
     });
     
 };
-
-
 
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-b from-indigo-950 to-indigo-900">
@@ -68,7 +63,6 @@ const LoginPage = () => {
         </form>
   
       </div>
-      <ToastContainer />
     </div>
   );
 };
