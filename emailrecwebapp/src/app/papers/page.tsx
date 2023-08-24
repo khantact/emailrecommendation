@@ -1,8 +1,9 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { db } from '../../utils/firebase'; // Make sure this import path is correct
 import { collection, getDocs } from 'firebase/firestore'; 
 import { useRouter } from 'next/navigation';
+import { auth, db } from '../../utils/firebase.js';
+import { getDoc, doc, updateDoc, onSnapshot, DocumentSnapshot } from "firebase/firestore";
 
 interface UserData {
   id: string;
@@ -12,14 +13,25 @@ interface UserData {
 const Papers = () => {
   const [userData, setUserData] = useState<UserData[]>([]);
   const router = useRouter();
+  const [preferencesRef, setPreferencesRef] = useState<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
+      const unsubscribe = auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          setPreferencesRef(doc(db, "users", user.uid));
+          console.log(user);
+        } else {
+          router.push('/login');
+        }
+      });
+
       try {
-        const querySnapshot = await getDocs(collection(db, 'users'));
+        const querySnapshot = await getDocs(preferencesRef);
         const userDataArray: UserData[] = [];
         querySnapshot.forEach((doc) => {
           userDataArray.push({ id: doc.id, data: doc.data() });
+          console.log(userDataArray);
         });
         setUserData(userDataArray);
       } catch (error) {
