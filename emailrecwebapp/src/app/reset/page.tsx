@@ -1,50 +1,49 @@
-
-"use client"
-import React from 'react'
-import { useState, useEffect } from 'react'
-import Link from 'next/link';
+"use client";
+import React from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { getAuth } from "firebase/auth";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const ResetPage = () => {
-  const [userEmail, setUserEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [notification, setNotification] = useState('');
+  const [userEmail, setUserEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [notification, setNotification] = useState("");
   const [notificationError, setNotificationError] = useState(false);
   const auth = getAuth();
   const user = auth.currentUser;
   const router = useRouter();
 
   const handlePasswordReset = async (e: { preventDefault: () => void }) => {
-    console.log('Password reset')
+    console.log("Password reset");
     e.preventDefault();
     if (!userEmail) {
-      router.push('/login');
+      router.push("/login");
       return;
     }
     if (newPassword !== confirmNewPassword) {
-      setNotification('Passwords do not match');
+      setNotification("Passwords do not match");
       setNotificationError(true);
       return;
-    } 
+    }
     if (newPassword.length < 6) {
-      setNotification('Password must be at least 6 characters');
+      setNotification("Password must be at least 6 characters");
       setNotificationError(true);
       return;
     }
     try {
-      console.log('Send password reset email to USER')
+      console.log("Send password reset email to USER");
       await sendPasswordResetEmail(auth, userEmail);
-      setNotification('Password reset email sent!');
+      setNotification("Password reset email sent!");
       setNotificationError(false);
     } catch (error) {
-      setNotification('Error sending password reset email');
+      setNotification("Error sending password reset email");
       setNotificationError(true);
     }
-    setNewPassword('');
-    setConfirmNewPassword('');
+    setNewPassword("");
+    setConfirmNewPassword("");
   };
 
   return (
@@ -71,12 +70,22 @@ const ResetPage = () => {
           onChange={(e) => setConfirmNewPassword(e.target.value)}
           placeholder="Confirm New Password"
         />
-        <button className="p-3 text-lg mb-4 border-none bg-white text-peach bg-indigo-700 rounded-md hover:bg-indigo-800 transition ease-in " onClick={handlePasswordReset}>
+        <button
+          className="p-3 text-lg mb-4 border-none bg-indigo-600 text-peach bg-indigo-200 rounded-md hover:bg-indigo-800 transition ease-in "
+          onClick={handlePasswordReset}
+        >
           Send password reset email
         </button>
         <div className="mt-4 text-peach">
           {/* eslint-disable-next-line react/no-unescaped-entities */}
-          Don't have an account? <Link href="/register" className="hover:text-indigo-500 transition ease-in underline">Register</Link> now.
+          Don't have an account?{" "}
+          <Link
+            href="/register"
+            className="hover:text-indigo-500 transition ease-in underline"
+          >
+            Register
+          </Link>{" "}
+          now.
         </div>
       </div>
     </div>
